@@ -47,9 +47,13 @@ const stackGroups = [
 ];
 
 const projects = [
-  { number: '01', name: 'Dira OS', category: 'BUSINESS OPERATING SYSTEM', description: 'An offline-first business management platform designed to help businesses manage sales, inventory, finance, reporting and day-to-day operations through a unified application.', link: 'https://dira-os.vickinstechnologies.com/', type: 'dira' },
-  { number: '02', name: 'Sorana Property Managers', category: 'PROPERTY MANAGEMENT SAAS', description: 'A property management platform designed to streamline rental operations, property management workflows, tenant interactions and property-owner services.', link: 'https://www.soranapropertymanagers.com/', type: 'sorana' },
-  { number: '03', name: 'V-Guard', category: 'SECURITY TECHNOLOGY', description: 'A Vickins Technologies product currently being developed as part of the company’s growing software and technology portfolio.', link: null, type: 'guard' },
+  { number: '01', name: 'Dira OS', category: 'VICKINS PRODUCT · FLAGSHIP', description: 'An offline-first business operating system bringing POS, inventory, finance, reporting, team management and branch operations together.', link: 'https://dira-os.vickinstechnologies.com/', logo: '/images/projects/dira-os-logo.png', logoAlt: 'Dira OS logo', type: 'dira' },
+  { number: '02', name: 'VornShield', category: 'VICKINS PRODUCT · INFRASTRUCTURE', description: 'A proxy management infrastructure platform built as part of Vickins Technologies’ growing product portfolio.', link: 'https://vornshield.vickinstechnologies.com/', logo: '/images/projects/vornshield-logo.png', logoAlt: 'VornShield logo', type: 'vornshield' },
+  { number: '03', name: 'Sorana Property Managers', category: 'FULL-STACK · UI/UX', description: 'A property management platform for tenant tracking, M-Pesa payments, invoicing, SMS notifications, listings and administration.', link: 'https://www.soranapropertymanagers.com/', logo: '/images/projects/sorana.png', logoAlt: 'Sorana Property Managers logo', type: 'sorana' },
+  { number: '04', name: 'Baggit', category: 'FULL-STACK · E-COMMERCE', description: 'A premium e-commerce platform with a clean, conversion-focused shopping experience for fashion and tech essentials.', link: 'https://baggit-psi.vercel.app/', logo: '/images/projects/baggit.png', logoAlt: 'Baggit logo', type: 'baggit' },
+  { number: '05', name: 'Wanjahi Group', category: 'FULL-STACK · CORPORATE WEBSITE', description: 'A professional corporate website showcasing motors, property services, business solutions, testimonials and company performance.', link: 'https://wanjahi.com', logo: '/images/projects/wanjahi.png', logoAlt: 'Wanjahi Group logo', type: 'wanjahi' },
+  { number: '06', name: 'Macdee Entertainment', category: 'ENTERPRISE WEB APP', description: 'An enterprise-level entertainment platform with a robust backend, user management and custom interface components.', link: 'https://macdeeentertainment.vercel.app/', logo: '/images/projects/macdee.png', logoAlt: 'Macdee Entertainment logo', type: 'macdee' },
+  { number: '07', name: 'Vickins Technologies Portfolio', category: 'WEB · BRAND IDENTITY', description: 'The Vickins Technologies portfolio experience, bringing the company’s digital platforms, services and brand system together.', link: 'https://www.vickinstechnologies.com/', logo: '/images/projects/vickins-portfolio.png', logoAlt: 'Vickins Technologies logo', type: 'portfolio' },
 ];
 
 function ExternalLink({ href, children, className = '' }: { href: string; children: React.ReactNode; className?: string }) {
@@ -64,6 +68,7 @@ function Brand({ onClick }: { onClick?: () => void }) {
 }
 
 export default function Home() {
+  const [isLoading, setIsLoading] = useState(true);
   const [dark, setDark] = useState(false);
   const [themeReady, setThemeReady] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -72,6 +77,30 @@ export default function Home() {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [hasScrolled, setHasScrolled] = useState(false);
   const [cursorPoint, setCursorPoint] = useState({ x: -100, y: -100 });
+
+  useEffect(() => {
+    const startedAt = performance.now();
+    const minimumDuration = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 350 : 1200;
+    let completionTimer: number | undefined;
+    const complete = () => {
+      completionTimer = window.setTimeout(() => setIsLoading(false), Math.max(0, minimumDuration - (performance.now() - startedAt)));
+    };
+
+    if (document.readyState === 'complete') complete();
+    else window.addEventListener('load', complete, { once: true });
+
+    const fallbackTimer = window.setTimeout(() => setIsLoading(false), 2400);
+    return () => {
+      window.removeEventListener('load', complete);
+      window.clearTimeout(completionTimer);
+      window.clearTimeout(fallbackTimer);
+    };
+  }, []);
+
+  useEffect(() => {
+    document.body.style.overflow = isLoading ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [isLoading]);
 
   useEffect(() => {
     const saved = window.localStorage.getItem('kelvin-theme');
@@ -134,13 +163,32 @@ export default function Home() {
   const closeMenu = () => setMenuOpen(false);
 
   return (
-    <main>
+    <>
+      <div className={isLoading ? 'preloader is-active' : 'preloader is-dismissed'} role="status" aria-live="polite" aria-hidden={!isLoading}>
+        <div className="preloader-grid" aria-hidden="true" />
+        <div className="preloader-orb preloader-orb-one" aria-hidden="true" />
+        <div className="preloader-orb preloader-orb-two" aria-hidden="true" />
+        <div className="preloader-content">
+          <div className="preloader-logo-frame"><div className="preloader-logo" aria-hidden="true" /></div>
+          <span className="preloader-kicker">VICKINS TECHNOLOGIES</span>
+          <h1>Building what’s next.</h1>
+          <p>Kelvin Thuo / Portfolio</p>
+          <div className="preloader-loader" aria-hidden="true"><span /></div>
+          <div className="preloader-status"><span>INITIALIZING EXPERIENCE</span><span>2026</span></div>
+        </div>
+        <div className="preloader-corner preloader-corner-top">PORTFOLIO / 01</div>
+        <div className="preloader-corner preloader-corner-bottom">NAIROBI, KE <span className="dot" /> ONLINE</div>
+      </div>
+
+      <main>
       <div className="cursor-glow" style={{ transform: `translate3d(${cursorPoint.x}px, ${cursorPoint.y}px, 0)` }} aria-hidden="true" />
       <div className="page-progress" aria-hidden="true"><span style={{ transform: `scaleX(${scrollProgress / 100})` }} /></div>
       <header className={hasScrolled ? 'site-header is-scrolled' : 'site-header'}>
         <div className="container nav-shell">
           <Brand onClick={closeMenu} />
+          <button className={menuOpen ? 'nav-backdrop is-open' : 'nav-backdrop'} aria-label="Close navigation" aria-hidden={!menuOpen} tabIndex={menuOpen ? 0 : -1} onClick={closeMenu} />
           <nav className={menuOpen ? 'nav-links is-open' : 'nav-links'} aria-label="Primary navigation">
+            <div className="mobile-nav-heading"><span>Navigation</span><strong>Explore Kelvin’s work</strong></div>
             {navItems.map(([id, label]) => <a key={id} href={`#${id}`} onClick={closeMenu} className={activeSection === id ? 'active' : ''} aria-current={activeSection === id ? 'page' : undefined}>{label}</a>)}
             <ExternalLink href="https://github.com/Vickins-Technologies1">GitHub</ExternalLink>
           </nav>
@@ -176,7 +224,7 @@ export default function Home() {
 
       <section className="section stack-section" id="stack"><div className="container"><div className="section-intro"><div className="section-label">03 / TOOLKIT</div><div><h2>Technology stack</h2><p>A broad engineering toolkit, applied in context. The right technology is the one that fits the product, its users and the team that will maintain it.</p></div></div><div className="stack-interface" data-reveal><div className="stack-tabs" role="tablist" aria-label="Technology categories">{stackGroups.map((group) => <button key={group.key} className={activeStack === group.key ? 'active' : ''} onClick={() => setActiveStack(group.key)} role="tab" aria-selected={activeStack === group.key}>{group.key}<Icon name="arrow" size={14} /></button>)}</div><div className="stack-panel" role="tabpanel" aria-label={`${activeGroup.key} technologies`}><div className="stack-panel-copy"><span className="eyebrow">{activeGroup.kicker}</span><h3>{activeGroup.title}</h3><p>{activeGroup.description}</p></div><div className="stack-items">{activeGroup.items.map((item) => <span key={item}>{item}</span>)}</div></div></div></div></section>
 
-      <section className="section work-section" id="work"><div className="container"><div className="section-intro"><div className="section-label">04 / SELECTED WORK</div><div><h2>Products with a purpose.</h2><p>Software products and digital systems developed through Vickins Technologies.</p></div></div><div className="project-list" data-reveal>{projects.map((project) => <article className={`project-card ${project.type}`} key={project.name}><div className="project-visual"><span className="project-grid-mark" /><span className="project-number">{project.number}</span>{project.type === 'dira' && <div className="product-lockup"><span className="product-symbol">D</span><strong>Dira <i>OS</i></strong></div>}{project.type === 'sorana' && <div className="sorana-lockup"><span>S</span><strong>sorana</strong><small>PROPERTY MANAGERS</small></div>}{project.type === 'guard' && <div className="guard-lockup"><span>V</span><strong>V-Guard</strong></div>}</div><div className="project-info"><span className="eyebrow">{project.category}</span><h3>{project.name}</h3><p>{project.description}</p><div className="project-footer">{project.link ? <ExternalLink href={project.link} className="text-link">Visit project <Icon name="external" size={13} /></ExternalLink> : <span className="project-note">Portfolio project</span>}<span className="round-arrow"><Icon name="arrow" size={17} /></span></div></div></article>)}</div></div></section>
+      <section className="section work-section" id="work"><div className="container"><div className="section-intro"><div className="section-label">04 / SELECTED WORK</div><div><h2>Projects with a purpose.</h2><p>Products, platforms and client work delivered through Vickins Technologies.</p></div></div><div className="project-list" data-reveal>{projects.map((project) => <article className={`project-card ${project.type}`} key={project.name}><div className="project-visual"><span className="project-grid-mark" /><span className="project-number">{project.number}</span><div className="project-logo-frame"><Image src={project.logo} alt={project.logoAlt} width={320} height={180} className="project-logo" /></div></div><div className="project-info"><span className="eyebrow">{project.category}</span><h3>{project.name}</h3><p>{project.description}</p><div className="project-footer"><ExternalLink href={project.link} className="text-link">Visit project <Icon name="external" size={13} /></ExternalLink><span className="round-arrow"><Icon name="arrow" size={17} /></span></div></div></article>)}</div></div></section>
 
       <section className="section build-section" id="engineering"><div className="container"><div className="section-intro"><div className="section-label">05 / APPROACH</div><div><h2>How I build</h2><p>Good engineering is a sequence of clear decisions. These principles keep the work grounded in the people and problems the product exists to serve.</p></div></div><div className="principles" data-reveal>{[['01', 'Understand the Problem', 'Software begins with understanding the business, workflow and people using it.'], ['02', 'Design for Simplicity', 'Complex systems should result in simple and intuitive user experiences.'], ['03', 'Engineer for Reliability', 'Applications should be structured for maintainability, resilience and real-world usage.'], ['04', 'Build for Growth', 'Architecture should allow products and businesses to evolve without unnecessary complexity.']].map(([num, title, text]) => <div className="principle" key={num}><span>{num}</span><div><h3>{title}</h3><p>{text}</p></div></div>)}</div></div></section>
 
@@ -187,6 +235,7 @@ export default function Home() {
       <section className="section contact-section" id="contact"><div className="container contact-grid" data-reveal><div><div className="section-label">07 / CONTACT</div><h2>Let&apos;s build<br /><em>something useful.</em></h2><p>For software projects, product development, technical collaboration or business technology solutions, get in touch.</p></div><div className="contact-panel"><a href="mailto:vickins@vickinstechnologies.com"><span className="contact-icon"><Icon name="mail" size={18} /></span><span><small>EMAIL</small><strong>vickins@vickinstechnologies.com</strong></span><Icon name="arrow" size={17} /></a><a href="tel:0768476469"><span className="contact-icon"><Icon name="phone" size={18} /></span><span><small>PHONE</small><strong>0768476469</strong></span><Icon name="arrow" size={17} /></a><ExternalLink href="https://github.com/Vickins-Technologies1"><span className="contact-icon"><Icon name="github" size={18} /></span><span><small>GITHUB</small><strong>Vickins Technologies</strong></span><Icon name="external" size={15} /></ExternalLink><ExternalLink href="https://www.vickinstechnologies.com"><span className="contact-icon company-contact-mark">V</span><span><small>COMPANY</small><strong>Vickins Technologies</strong></span><Icon name="external" size={15} /></ExternalLink><a className="button button-primary contact-button" href="mailto:vickins@vickinstechnologies.com">Start a conversation <Icon name="arrow" size={17} /></a></div></div></section>
 
       <footer className="site-footer"><div className="container footer-top"><Brand /><div className="footer-links"><div><span>EXPLORE</span><a href="#about">About</a><a href="#expertise">Expertise</a><a href="#work">Work</a><a href="#engineering">Engineering</a><a href="#contact">Contact</a></div><div><span>ELSEWHERE</span><ExternalLink href="https://www.vickinstechnologies.com">Vickins Technologies</ExternalLink><ExternalLink href="https://github.com/Vickins-Technologies1">GitHub</ExternalLink></div></div></div><div className="container footer-bottom"><span>© {new Date().getFullYear()} Kelvin Thuo. All rights reserved.</span><span>Founder · Engineer · Product Builder</span></div></footer>
-    </main>
+      </main>
+    </>
   );
 }
