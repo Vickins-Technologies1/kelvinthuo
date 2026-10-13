@@ -212,7 +212,7 @@ export default function Home() {
             <div className="hero-meta"><div><span>FOUNDER</span><strong>Vickins Technologies</strong></div><div><span>ENGINEERING</span><strong>Web · Mobile · Backend</strong></div><div><span>FOCUS</span><strong>Software · Products · Systems</strong></div></div>
           </div>
           <div className="hero-visual">
-            <div className="portrait-backdrop" /><div className="portrait-frame"><Image src="/images/kelvin-portrait.png" alt="Kelvin Thuo, CEO and Founder of Vickins Technologies" fill priority sizes="(max-width: 800px) 88vw, 42vw" /></div>
+            <div className="portrait-backdrop" /><div className="portrait-frame"><Image src="/images/kelvin-portrait-transparent.png" alt="Kelvin Thuo, CEO and Founder of Vickins Technologies" fill priority sizes="(max-width: 800px) 88vw, 42vw" /></div>
             <div className="portrait-note"><span className="dot" /> FOUNDER / ENGINEER <span>NAIROBI, KE</span></div>
             <div className="hero-index">01 <span>/</span> 06</div>
           </div>
