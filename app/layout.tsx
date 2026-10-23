@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: 'Kelvin Thuo | Software Engineer & IT Specialist | Vickins Technologies',
   description:
-    'Meet Kelvin Thuo, Founder of Vickins Technologies and a software engineer specializing in web applications, business systems, IT support, networking, and technology solutions in Kenya.',
+    'I’m Kelvin Thuo, Founder of Vickins Technologies. I build web applications, business systems and technology solutions, and work across IT support and networking in Kenya.',
   applicationName: 'Kelvin Thuo Portfolio',
   authors: [{ name: 'Kelvin Thuo', url: siteUrl }],
   creator: 'Kelvin Thuo',
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Kelvin Thuo | Software Engineer & IT Specialist | Vickins Technologies',
     description:
-      'Software engineering, business systems, IT support and technology solutions led by Kelvin Thuo through Vickins Technologies in Kenya.',
+      'I build software, business systems and technology solutions, and lead engineering through Vickins Technologies in Kenya.',
     type: 'website',
     url: `${siteUrl}/`,
     siteName: 'Kelvin Thuo | Vickins Technologies',
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Kelvin Thuo | Software Engineer & IT Specialist',
     description:
-      'Software engineering, business systems and technology solutions led by Kelvin Thuo through Vickins Technologies.',
+      'I build software, business systems and technology solutions through Vickins Technologies.',
     images: ['/images/kelvin-portrait.png'],
   },
   alternates: { canonical: '/' },
@@ -53,7 +53,7 @@ const structuredData = [
     image: `${siteUrl}/images/kelvin-portrait.png`,
     jobTitle: 'Software Engineer, IT Specialist and Founder',
     description:
-      'Kelvin Thuo is a software engineer, IT specialist and founder of Vickins Technologies focused on practical software products, business systems and technology solutions.',
+      'I am a software engineer, IT specialist and founder of Vickins Technologies. I focus on practical software products, business systems and technology solutions.',
     affiliation: { '@id': `${companyUrl}/#organization` },
     sameAs: [githubUrl],
     knowsAbout: [

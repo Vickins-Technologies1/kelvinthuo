@@ -140,3 +140,16 @@ body { min-width:320px; }
 .skip-link { position:fixed; z-index:110; top:12px; left:12px; padding:10px 14px; color:#fff; background:var(--blue-deep); transform:translateY(-160%); transition:transform .2s ease; }
 .skip-link:focus { transform:none; }
 @media (max-height:560px) and (orientation:landscape) { .preloader-title { font-size:clamp(24px,5vw,34px); margin-top:9px; } }
+
+/* Editorial polish: retain the existing tokens and geometry while improving
+   heading wraps and the smallest reading sizes across the portfolio. */
+h1, h2, h3 { text-wrap:balance; }
+.hero-lede { max-width:500px; line-height:1.72; }
+.expertise-card p, .project-info p { font-size:13px; line-height:1.65; }
+.project-info { padding:25px 22px 21px; }
+.button { min-height:46px; }
+.expertise-card, .project-card, .stack-interface, .github-card { border-color:color-mix(in srgb, var(--line) 92%, var(--ink)); }
+@media (max-width:560px) {
+  .hero-lede { max-width:38ch; }
+  .project-info { padding:23px 18px 19px; }
+}
