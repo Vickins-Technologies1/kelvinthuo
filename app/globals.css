@@ -149,7 +149,11 @@ h1, h2, h3 { text-wrap:balance; }
 .project-info { padding:25px 22px 21px; }
 .button { min-height:46px; }
 .expertise-card, .project-card, .stack-interface, .github-card { border-color:color-mix(in srgb, var(--line) 92%, var(--ink)); }
+.project-attribution { display:block; margin:-4px 0 8px; color:var(--muted); font-size:10px; font-weight:600; letter-spacing:.025em; }
+.my-accurate-rent .project-visual { background:linear-gradient(145deg, var(--blue-deep), var(--accent) 70%, var(--accent-soft)); }
+.my-accurate-rent .project-logo-frame { width:224px; height:224px; padding:12px; }
 @media (max-width:560px) {
   .hero-lede { max-width:38ch; }
   .project-info { padding:23px 18px 19px; }
+  .my-accurate-rent .project-logo-frame { width:192px; height:192px; }
 }
